@@ -1,8 +1,7 @@
 export {}
-const { validate } = require('jsonschema')
 const Model = require('./model')
 const Utils = require('../lib/utils')
-// TODO: Create schema validation ms
+
 const utils = new Utils()
 
 type CreateProps = Record<string, unknown>
@@ -18,9 +17,7 @@ module.exports = class TenantModel extends Model {
    }
 
    async create(props: CreateProps): Promise<CreateResponse> {
-      const schema = await utils.loadSchema('tenant')
-      const result = validate(props, schema)
-      return result.valid
+      return await utils.validateSchema('tenant_create', props)
    }
 
    async get(props: GetProps): Promise<GetResponse> {

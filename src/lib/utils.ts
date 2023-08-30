@@ -1,8 +1,8 @@
 const axios = require('axios')
-const Validator = require('jsonschema').Validator
 const { PubSubAdapter } = require('@yunibas/core')
 
-const v = new Validator()
+const BASEURL =
+   'https://us-central1-yunibas-prms-dev.cloudfunctions.net/schemavalidator-api'
 
 type PublishMessageProps = {
    severity: string
@@ -51,41 +51,14 @@ module.exports = class Utils {
          })
    }
 
-   async loadSchema(schema: string): Promise<unknown> {
-      const url = `${process.env.SCHEMA_BASEURL}/json-schemas/${schema}.json`
-      const response = await axios.get(url)
-      return response.data
-   }
-
-   async validateSchema(
-      schema: string,
-      obj: Record<string, unknown>
-   ): Promise<Record<string, unknown>> {
-      const url = `${process.env.SCHEMA_BASEURL}/json-schemas/${schema}.json`
-      let response = await axios.get(url)
-      const $schema = response.data
-      console.log('$schema', $schema)
-      v.addSchema($schema)
-      await Promise.all(
-         v.unresolvedRefs.map(async (ref) => {
-            response = await axios.get(ref)
-            v.addSchema(response.data)
-         })
-      )
-      // console.log('v', v)
-      const validation = v.validate(obj, $schema)
-      const errors: Record<string, unknown>[] = []
-      if (validation.errors.length > 0) {
-         validation.errors.forEach((err) => {
-            errors.push({
-               message: err.message,
-               schema: err.schema,
-               stack: err.stack,
-            })
-         })
-         console.log('errors', errors)
-         return { success: false, errors }
+   async validateSchema(schema: string, obj: Record<string, unknown>) {
+      try {
+         const result = await axios.post(`${BASEURL}/${schema}`, obj)
+         if (result.status === 200) return true
+         return false
+      } catch (error) {
+         if (error instanceof Error) return error
+         return new Error('Error validating schema')
       }
-      return { success: true }
    }
 }
