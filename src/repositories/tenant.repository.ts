@@ -15,7 +15,7 @@ module.exports = class TenantRepository extends Repository {
    }
 
    async getTenant(props: GetTenantProps): Promise<GetTenantResponse> {
-      const id = props.tenant_id
+      const id = props.id
       const tenant = await this.adapter.getDoc({
          collection: 'tenants',
          id,

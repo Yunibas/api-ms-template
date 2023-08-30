@@ -18,6 +18,7 @@ module.exports = class TenantService extends Service {
    }
 
    async getTenant(props: GetTenantProps): Promise<GetTenantResponse> {
+      console.log('service', 'getTenant', 'props', props)
       const result = await this.repo.getTenant(props)
 
       utils.publishMessage({
