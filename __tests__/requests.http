@@ -1,0 +1,25 @@
+# @base_url = http://localhost:8080
+@base_url = https://securesync-webservice-dp2rhrnfxa-uc.a.run.app
+@id = 1uJzAIozyvKLw2HO1Chq
+
+GET {{base_url}} HTTP/1.1
+
+###
+
+POST {{base_url}}/tenants HTTP/1.1
+content-type: application/json
+
+{
+   "federal_id": "4816110",
+   "long_name": "Cypress-Fairbanks ISD",
+   "short_name": "Cy-Fair ISD",
+   "domain": "cfisd.net"
+}
+
+###
+
+GET {{base_url}}/tenants/{{id}} HTTP/1.1
+
+###
+
+GET {{base_url}}/tenants HTTP/1.1
