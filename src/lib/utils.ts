@@ -29,12 +29,12 @@ module.exports = class Utils {
       } = props
       const payload = {
          severity,
-         log_name: 'SecureSync',
+         log_name: 'LoggerEvent',
          message: {
             env: process.env.NODE_ENV ?? 'development',
             tenant_ref,
             timestamp: new Date().toUTCString(),
-            service: 'securesync_webservice',
+            service: 'api-ms-template',
             process: 'tenant.service',
             action,
             actor_ref: null,
