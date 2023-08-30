@@ -8,7 +8,7 @@ if (TRIGGER === 'http') {
    const TenantRoutes = require('./routes/tenant.routes')
 
    const app = new HttpApp([new IndexRoutes(), new TenantRoutes()])
-   functions.http('securesync_webservice', app.getServer())
+   functions.http('api-ms-template', app.getServer())
 }
 
 // if (TRIGGER === 'event') {

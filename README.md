@@ -2,6 +2,14 @@
 
 This template is a working example of a microservice providing CRUD API endpoints. It integrates with GCP Firestore & GCP PubSub.
 
+## Running Local
+
+To run a microservice locally but pointed at GCP backend services, you must assign the default credentials environment variable to the path of a local copy of a valid service account.
+
+```
+export GOOGLE_APPLICATION_CREDENTIALS=/path/to/credentials.json
+```
+
 ## Requests
 
 ### Overview

@@ -1,6 +1,6 @@
-# @base_url = http://localhost:8080
-@base_url = https://securesync-webservice-dp2rhrnfxa-uc.a.run.app
-@id = 1uJzAIozyvKLw2HO1Chq
+@base_url = http://localhost:8080
+# @base_url = https://securesync-webservice-dp2rhrnfxa-uc.a.run.app
+@id = 01GPPGFZ92KD0S3F5BSTQECNC1
 
 GET {{base_url}} HTTP/1.1
 

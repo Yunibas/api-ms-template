@@ -16,6 +16,7 @@ module.exports = class TenantCommands extends Commands {
    }
 
    getTenant = async (props: GetTenantProps): Promise<GetTenantResponse> => {
+      console.log('commands', 'getTenant', 'props', props)
       const result = await service.getTenant(props)
       return result
    }

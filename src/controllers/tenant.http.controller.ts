@@ -18,6 +18,7 @@ module.exports = class TenantHttpController extends HttpController {
       next: NextFunction
    ): Promise<void> => {
       try {
+         console.log('controller', 'getTenant', 'req.params', req.params)
          // Validate request
          if (!model.get(req.params)) {
             res.status(400).send('Malformed request')
