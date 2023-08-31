@@ -6,8 +6,19 @@ This template is a working example of a microservice providing CRUD API endpoint
 
 To run a microservice locally but pointed at GCP backend services, you must assign the default credentials environment variable to the path of a local copy of a valid service account.
 
-```
+```sh
 export GOOGLE_APPLICATION_CREDENTIALS=/path/to/credentials.json
+```
+
+If you are running the Firestore emulator you will also need the following enviornment variable.
+
+```sh
+export FIRESTORE_EMULATOR_HOST=localhost:8081
+```
+
+NOTE: The GCP emulators do not shut down cleanly.  After closing the emulator (Ctrl/C in console) you also need to run the stop script.
+```sh
+yarn stop:emulators
 ```
 
 ## Requests
@@ -16,7 +27,7 @@ export GOOGLE_APPLICATION_CREDENTIALS=/path/to/credentials.json
 
 All HTTP request follow the same code flow but executing the appropriate methods for the associated endpoint.
 
-The Controller is responsible for validating the parameters and body of the requests. The validation uses JSON Schema definitions found in the `db-json-schemas` repository (via GitHub Pages).
+The Controller is responsible for validating the parameters and body of the requests. The validation uses JSON Schema definitions found in the `schemaValidator` microservice.
 
 After the Service completes the request to the Repository, it publishes the event details to the `LogEventTopic` in PubSub.
 

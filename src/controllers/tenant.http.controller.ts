@@ -56,8 +56,8 @@ module.exports = class TenantHttpController extends HttpController {
    ): Promise<void> => {
       try {
          console.log('req', req.body)
-         const validation = await model.get(req.body)
-         if (!validation.success) {
+         const validation = await model.create(req.body)
+         if (!validation) {
             res.status(400).send(JSON.stringify(validation.errors))
             return void 0
          }
