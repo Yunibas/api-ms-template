@@ -13,7 +13,7 @@
       "stop:emulators": "lsof -t -i:8080 -i:8081 | xargs kill -9",
       "copy:local": "yaml2json .env.local.yml > .env.json",
       "start:dev": "npm-run-all copy:local build start:emulators:functions",
-      "start:local": "npm-run-all copy:local build start:emulators",
+      "start:local": "npm-run-all stop:emulators copy:local build start:emulators",
       "start:watch": "nodemon --watch ./src -e ts -x \"npm run start:local\"",
       "lint": "gts lint",
       "clean": "gts clean",

@@ -17,6 +17,7 @@ module.exports = class TenantModel extends Model {
    }
 
    async create(props: CreateProps): Promise<CreateResponse> {
+      // console.log('model', 'create', 'props', props)
       return true
       // return await utils.validateSchema('tenant_create', props)
    }
