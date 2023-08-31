@@ -1277,10 +1277,10 @@
     "@typescript-eslint/types" "4.33.0"
     eslint-visitor-keys "^2.0.0"
 
-"@yunibas/core@^0.0.24":
-  version "0.0.24"
-  resolved "https://registry.yarnpkg.com/@yunibas/core/-/core-0.0.24.tgz#e85ba61aabcf983c3fd7c3a585f09239537c9f1c"
-  integrity sha512-P22Qpw2qTd5IDaXZhsINWWkTLgG7Vp12lZnBVloaC/pru+gxw97SkdHrv8wUXthlAb//dWeMP6nCd6umDyNMWw==
+"@yunibas/core@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@yunibas/core/-/core-0.0.2.tgz#3ed367c63ff94573f5fbe7456d85627c20e5ac31"
+  integrity sha512-WOw1I/l+j/0F70htBIFahUcARgVLxIJcHL1Frs3QsbtgBSw0LxTXHFeHEE2FN568/4pmQqfGBsMYkPNru0TuPQ==
   dependencies:
     "@google-cloud/bigquery" "^7.2.0"
     "@google-cloud/firestore" "^6.7.0"
