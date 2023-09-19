@@ -1,33 +1,44 @@
 name: 'Deploy Cloud Function to DEV'
 on:
-   push:
-      branches:
-         - 'dev'
+  push:
+    branches:
+      - 'dev'
 jobs:
-   job_id:
-      runs-on: 'ubuntu-latest'
-      permissions:
-         contents: 'read'
-         id-token: 'write'
+  deploy:
+    runs-on: 'ubuntu-latest'
+    permissions:
+      contents: 'read'
+      id-token: 'write'
 
-      steps:
-         - uses: 'actions/checkout@v3'
+    steps:
+      - uses: 'actions/checkout@v3'
 
-         - id: 'auth'
-           uses: 'google-github-actions/auth@v1'
-           with:
-              credentials_json: ${{ secrets.CREDENTIALS_JSON }}
+      - id: 'setup-node'
+        uses: 'actions/setup-node@v2'
+        with:
+          node-version: '16'
 
-         - id: 'deploy'
-           uses: 'google-github-actions/deploy-cloud-functions@v1'
-           with:
-              name: 'api-ms-template'
-              runtime: 'nodejs16'
-              env_vars_file: '.env.development.yml'
-              source_dir: 'build/src'
-              project_id: 'yunibas-prms-dev'
-              description: 'Template API microservice'
+      - id: 'install'
+        run: 'yarn install'
 
-         # Example of using the output
-         - id: 'test'
-           run: 'curl "${{ steps.deploy.outputs.url }}"'
+      - id: 'build'
+        run: 'yarn build'
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: ${{ secrets.CREDENTIALS_JSON }}
+
+      - id: 'deploy'
+        uses: 'google-github-actions/deploy-cloud-functions@v1'
+        with:
+          name: 'api-ms-template'
+          runtime: 'nodejs16'
+          env_vars_file: '.env.development.yml'
+          source_dir: 'build/src'
+          project_id: 'yunibas-prms-dev'
+          description: 'Template API microservice'
+
+      # Example of using the output
+      - id: 'test'
+        run: 'curl "${{ steps.deploy.outputs.url }}"'
