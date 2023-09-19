@@ -16,7 +16,7 @@ jobs:
          - id: 'auth'
            uses: 'google-github-actions/auth@v1'
            with:
-              service_account: 'yunibas-prms-dev@appspot.gserviceaccount.com'
+              credentials_json: ${{ secrets.CREDENTIALS_JSON }}
 
          - id: 'deploy'
            uses: 'google-github-actions/deploy-cloud-functions@v1'
