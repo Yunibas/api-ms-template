@@ -1,44 +1,44 @@
-name: "Deploy Cloud Function to DEV"
+name: 'Deploy Cloud Function to DEV'
 on:
   push:
     branches:
-      - "dev"
+      - 'dev'
 jobs:
   deploy:
-    runs-on: "ubuntu-latest"
+    runs-on: 'ubuntu-latest'
     permissions:
-      contents: "read"
-      id-token: "write"
+      contents: 'read'
+      id-token: 'write'
 
     steps:
-      - uses: "actions/checkout@v3"
+      - uses: 'actions/checkout@v3'
 
-      - id: "setup-node"
-        uses: "actions/setup-node@v2"
+      - id: 'setup-node'
+        uses: 'actions/setup-node@v2'
         with:
-          node-version: "16"
+          node-version: '16'
 
-      - id: "install"
-        run: "yarn install"
+      - id: 'install'
+        run: 'yarn install'
 
-      - id: "build"
-        run: "yarn build"
+      - id: 'build'
+        run: 'yarn build'
 
-      - id: "auth"
-        uses: "google-github-actions/auth@v1"
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v1'
         with:
           credentials_json: ${{ secrets.CREDENTIALS_JSON }}
 
-      - id: "deploy"
-        uses: "google-github-actions/deploy-cloud-functions@v1"
+      - id: 'deploy'
+        uses: 'google-github-actions/deploy-cloud-functions@v1'
         with:
-          name: "auth-api-ms"
-          runtime: "nodejs16"
-          env_vars_file: ".env.development.yml"
-          source_dir: "."
-          project_id: "yunibas-prms-dev"
-          description: "Authentication API microservice"
+          name: 'api-ms-template'
+          runtime: 'nodejs16'
+          env_vars_file: '.env.development.yml'
+          source_dir: '.'
+          project_id: 'yunibas-prms-dev'
+          description: 'Authentication API microservice'
 
       # Example of using the output
-      - id: "test"
+      - id: 'test'
         run: 'curl "${{ steps.deploy.outputs.url }}"'
