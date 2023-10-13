@@ -1,0 +1,56 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const HttpController = require('./http.controller');
+const TenantCommands = require('../commands/tenant.commands');
+const TenantModel = require('../models/tenant.model');
+const command = new TenantCommands();
+const model = new TenantModel();
+module.exports = class TenantHttpController extends HttpController {
+    constructor() {
+        super();
+        this.getTenant = async (req, res, next) => {
+            try {
+                console.log('controller', 'getTenant', 'req.params', req.params);
+                // Validate request
+                if (!model.get(req.params)) {
+                    res.status(400).send('Malformed request');
+                    return void 0;
+                }
+                // Perform request
+                const result = await command.getTenant(req.params);
+                res.status(200).json(result);
+            }
+            catch (error) {
+                next(error);
+            }
+        };
+        this.getTenants = async (req, res, next) => {
+            try {
+                // No validation needed
+                const result = await command.getTenants();
+                console.log('http_controller', 'getTenants', result);
+                res.status(200).json(result);
+            }
+            catch (error) {
+                next(error);
+            }
+        };
+        this.createTenant = async (req, res, next) => {
+            try {
+                console.log('req', req.body);
+                const validation = await model.create(req.body);
+                if (!validation) {
+                    res.status(400).send(JSON.stringify(validation.errors));
+                    return void 0;
+                }
+                const result = await command.createTenant(req.body);
+                console.log('http_controller', 'createTenant', result);
+                res.status(201).json(result);
+            }
+            catch (error) {
+                next(error);
+            }
+        };
+    }
+};
+//# sourceMappingURL=tenant.http.controller.js.map
