@@ -2,7 +2,6 @@ const functions = require('@google-cloud/functions-framework')
 
 const TRIGGER = process.env.TRIGGER || 'http'
 
-
 if (TRIGGER === 'http') {
    const HttpApp = require('./http')
    const IndexRoutes = require('./routes/index.routes')
