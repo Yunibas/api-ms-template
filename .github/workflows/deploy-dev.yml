@@ -16,7 +16,7 @@ jobs:
          - id: 'auth'
            uses: 'google-github-actions/auth@v1'
            with:
-              service_account: 'github-sa@yunibas-prms-dev.iam.gserviceaccount.com'
+              service_account: '974331768252-compute@developer.gserviceaccount.com'
 
          - id: 'deploy'
            uses: 'google-github-actions/deploy-cloud-functions@v1'
@@ -30,4 +30,4 @@ jobs:
 
          # Example of using the output
          - id: 'test'
-           run: 'curl "${{ steps.deploy.outputs.url }}"'
+           run: 'curl "${{ steps.deploy.outputs.id }}"'
