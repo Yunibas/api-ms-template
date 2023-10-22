@@ -4,7 +4,7 @@ on:
     branches:
       - 'dev'
 jobs:
-  job_id:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
