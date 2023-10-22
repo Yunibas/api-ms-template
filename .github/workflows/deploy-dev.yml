@@ -15,6 +15,8 @@ jobs:
 
          - id: 'setup-node'
            uses: 'actions/setup-node@v2'
+           with:
+              service_account: 'github-sa@yunibas-prms-dev.iam.gserviceaccount.com'
 
          - id: 'install'
            run: 'yarn install'
