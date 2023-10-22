@@ -1,0 +1,36 @@
+name: 'Deploy Cloud Function to DEV'
+on:
+   push:
+      branches:
+         - 'dev'
+jobs:
+   deploy:
+      runs-on: 'ubuntu-latest'
+      permissions:
+         contents: 'read'
+         id-token: 'write'
+
+      steps:
+         - uses: 'actions/checkout@v3'
+
+         - id: 'setup-node'
+           uses: 'actions/setup-node@v2'
+
+         - id: 'install'
+           run: 'yarn install'
+
+         - id: 'build'
+           run: 'yarn build'
+
+         - id: 'auth'
+           uses: 'google-github-actions/auth@v1'
+           with:
+              service_account: 'github-sa@yunibas-prms-dev.iam.gserviceaccount.com'
+              credentials_json: ${{ secrets.CREDENTIALS_JSON }}
+
+         - id: 'deploy'
+           run: 'gcloud functions deploy api-ms-template-v2 --source=. --gen2 --env-vars-file=.env.development.yml --runtime=nodejs16 --region=us-central1 --trigger-http --allow-unauthenticated --entry-point=api-ms-template'
+
+         # Example of using the output
+         - id: 'test'
+           run: 'curl "${{ steps.deploy.outputs.id }}"'
